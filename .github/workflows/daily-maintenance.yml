@@ -1,0 +1,36 @@
+name: Daily maintenance record
+
+on:
+  schedule:
+    # 03:00 UTC daily (08:30 IST). GitHub may delay scheduled runs.
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  record-maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Update maintenance record
+        run: |
+          mkdir -p .github/automation
+          {
+            echo "# Automated maintenance record"
+            echo
+            echo "Last scheduled check: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            echo "Commit checked: $GITHUB_SHA"
+            echo "Workflow: $GITHUB_WORKFLOW"
+          } > .github/automation/daily-status.md
+
+      - name: Commit changed record
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/automation/daily-status.md
+          git diff --cached --quiet || git commit -m "chore: record daily maintenance check"
+          git push
