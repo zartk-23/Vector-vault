@@ -1,0 +1,1 @@
+API keys are generated with cryptographically secure randomness. The raw key is displayed once and only a SHA-256 digest is retained. Owner authorization is required to create or revoke a key.

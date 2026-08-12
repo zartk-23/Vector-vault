@@ -1,0 +1,1 @@
+VectorVault stores authoritative user, workspace, document, and chunk metadata in PostgreSQL. Production embeddings are stored and queried through Pinecone. Local development uses an in-memory vector store.
