@@ -26,7 +26,7 @@ VectorVault addresses this through document embeddings, metadata-filtered vector
 
 ## Architecture
 
-```mermaid
+```mermaidnn
 flowchart LR
   UI["Next.js dashboard"] --> API["FastAPI /api/v1"]
   API --> DB[("PostgreSQL metadata")]
